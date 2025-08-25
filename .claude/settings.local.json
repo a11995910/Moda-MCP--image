@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__moda-image__generate_image",
+      "Bash(mkdir:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "moda-image"
+  ]
+}
