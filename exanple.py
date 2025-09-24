@@ -16,7 +16,7 @@ response = requests.post(
     f"{base_url}v1/images/generations",
     headers={**common_headers, "X-ModelScope-Async-Mode": "true"},
     data=json.dumps({
-        "model": "MusePublic/489_ckpt_FLUX_1", # ModelScope Model-Id, required
+        "model": "Qwen/Qwen-Image", # ModelScope Model-Id, required
         "prompt": "A golden cat"
     }, ensure_ascii=False).encode('utf-8')
 )

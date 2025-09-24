@@ -36,7 +36,7 @@ class ModaImageGenerator:
             "Content-Type": "application/json",
         }
     
-    async def generate_image(self, prompt: str, model: str = "MusePublic/489_ckpt_FLUX_1") -> tuple[str, str, str]:
+    async def generate_image(self, prompt: str, model: str = "Qwen/Qwen-Image") -> tuple[str, str, str]:
         """生成图片并返回base64编码的图片数据、MIME类型和文件路径"""
         
         # 创建任务
@@ -130,7 +130,7 @@ async def handle_list_tools() -> list[Tool]:
                     "model": {
                         "type": "string", 
                         "description": "使用的模型ID",
-                        "default": "MusePublic/489_ckpt_FLUX_1"
+                        "default": "Qwen/Qwen-Image"
                     }
                 },
                 "required": ["prompt"]
@@ -151,7 +151,7 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
             raise ValueError("缺少参数")
         
         prompt = arguments.get("prompt")
-        model = arguments.get("model", "MusePublic/489_ckpt_FLUX_1")
+        model = arguments.get("model", "Qwen/Qwen-Image")
         
         if not prompt:
             raise ValueError("prompt参数是必需的")

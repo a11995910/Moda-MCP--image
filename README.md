@@ -74,7 +74,7 @@ pip3 install requests Pillow mcp
 
 ### 指定模型
 ```
-使用 MusePublic/489_ckpt_FLUX_1 模型生成一幅山水画
+使用 Qwen/Qwen-Image 模型生成一幅山水画
 ```
 
 ## 可用工具
@@ -85,7 +85,7 @@ pip3 install requests Pillow mcp
 
 **参数**:
 - `prompt` (必需): 图片生成的文本描述
-- `model` (可选): 模型ID，默认为 `"MusePublic/489_ckpt_FLUX_1"`
+- `model` (可选): 模型ID，默认为 `"Qwen/Qwen-Image"`
 
 **功能**:
 - 🖼️ 在 Claude Code 界面显示生成的图片
@@ -108,7 +108,7 @@ MODA_MCP/
 
 ## 支持的模型
 
-- **MusePublic/489_ckpt_FLUX_1** (默认) - FLUX 高质量图像生成
+- **Qwen/Qwen-Image** (默认) - FLUX 高质量图像生成
 - 其他魔搭平台支持的图像生成模型（需在魔搭平台查看可用模型）
 
 ## 故障排除
