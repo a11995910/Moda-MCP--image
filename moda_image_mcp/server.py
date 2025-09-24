@@ -36,7 +36,7 @@ class ModaImageGenerator:
             "Content-Type": "application/json",
         }
     
-    async def generate_image(self, prompt: str, model: str = "Qwen/Qwen-Image") -> tuple[str, str, str]:
+    async def generate_image(self, prompt: str, model: str = "Qwen/Qwen-Image", save_path: str | None = None) -> tuple[str, str, str]:
         """生成图片并返回base64编码的图片数据、MIME类型和文件路径"""
         
         # 创建任务
@@ -70,15 +70,25 @@ class ModaImageGenerator:
                 image_response = requests.get(data["output_images"][0])
                 image_response.raise_for_status()
                 
-                # 使用PIL打开和处理图片（就像example.py那样）
+                # 使用PIL打开和处理图片
                 image = Image.open(BytesIO(image_response.content))
-                
-                # 创建images目录
-                os.makedirs("images", exist_ok=True)
-                
-                # 生成带时间戳的文件名
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                filename = f"images/generated_{timestamp}.jpg"
+
+                # 处理保存路径
+                if save_path:
+                    if os.path.isdir(save_path):
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        filename = os.path.join(save_path, f"generated_{timestamp}.jpg")
+                    else:
+                        filename = save_path
+                else:
+                    # 默认保存到下载文件夹
+                    download_folder = os.path.expanduser('~/Downloads')
+                    os.makedirs(download_folder, exist_ok=True)
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    filename = os.path.join(download_folder, f"generated_{timestamp}.jpg")
+
+                # 确保目录存在
+                os.makedirs(os.path.dirname(filename), exist_ok=True)
                 
                 # 保存图片到本地文件
                 image.save(filename, "JPEG", quality=95)
@@ -131,6 +141,10 @@ async def handle_list_tools() -> list[Tool]:
                         "type": "string", 
                         "description": "使用的模型ID",
                         "default": "Qwen/Qwen-Image"
+                    },
+                    "save_path": {
+                        "type": "string",
+                        "description": "保存图片的路径（可选，可以是目录或完整文件路径）"
                     }
                 },
                 "required": ["prompt"]
@@ -152,13 +166,14 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
         
         prompt = arguments.get("prompt")
         model = arguments.get("model", "Qwen/Qwen-Image")
+        save_path = arguments.get("save_path")
         
         if not prompt:
             raise ValueError("prompt参数是必需的")
         
         try:
             logger.info(f"开始生成图片: {prompt}")
-            image_base64, mime_type, filename = await image_generator.generate_image(prompt, model)
+            image_base64, mime_type, filename = await image_generator.generate_image(prompt, model, save_path)
             
             return [
                 types.TextContent(
