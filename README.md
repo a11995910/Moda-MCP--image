@@ -2,6 +2,24 @@
 
 这是一个用于 Claude Code、gemini-cli、qwen code 等AI编辑器 的 MCP (Model Context Protocol) 服务器，集成了魔搭 ModelScope 的图像生成能力。
 
+## 项目进度与规划（2025-11-24）
+
+- **当前进度**：基础 MCP 服务器、异步轮询、图片本地保存与展示路径回传已完成，可在 Claude Code / gemini-cli / qwen code 中稳定调用。
+- **项目结构**：
+  - `moda_image_mcp/server.py`：核心 MCP 服务器与工具实现。
+  - `moda_image_mcp/__init__.py`：包初始化。
+  - `exanple.py`：直连魔搭 API 的示例脚本。
+  - `pyproject.toml`：打包与依赖定义。
+- **功能状态**：
+  - ✅ 已完成：图像生成工具 `generate_image`、异步任务轮询、图片格式嗅探、默认下载目录保存、基础错误提示。
+  - 🚧 进行中/未完成：API 超时/重试策略、配置化日志等级、模型列表查询工具、示例脚本安全处理（移除硬编码密钥）、自动化测试与 CI。
+- **下一步开发计划**：
+  1. 引入 aiohttp/asyncio 原生请求与超时重试，避免阻塞。
+  2. 新增 `list_models` 等辅助工具，暴露可用模型信息。
+  3. 封装配置管理（`.env`/pydantic-settings），并完善示例/文档用法。
+  4. 为关键路径补充单元测试与集成测试，接入 CI。
+  5. 检查并清理示例中的敏感信息，提供安全示例。
+
 ## 功能特性
 
 - 🎨 使用魔搭平台的 FLUX 等先进图像生成模型
