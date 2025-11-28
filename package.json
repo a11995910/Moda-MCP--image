@@ -1,0 +1,56 @@
+{
+  "name": "moda-image-mcp",
+  "version": "1.0.0",
+  "description": "MCP服务器 - 集成魔搭ModelScope图像生成能力，支持Claude Code、Gemini CLI、Qwen Code等AI编辑器",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "modelscope",
+    "image-generation",
+    "ai",
+    "claude",
+    "gemini",
+    "qwen"
+  ],
+  "author": "a11995910",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "moda-image-mcp": "./bin/moda-image-mcp.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "axios": "^1.6.0",
+    "sharp": "^0.33.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a11995910/Moda-MCP--image.git"
+  },
+  "bugs": {
+    "url": "https://github.com/a11995910/Moda-MCP--image/issues"
+  },
+  "homepage": "https://github.com/a11995910/Moda-MCP--image#readme"
+}
